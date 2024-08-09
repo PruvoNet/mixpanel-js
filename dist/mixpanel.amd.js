@@ -4656,6 +4656,17 @@ define(function () { 'use strict';
                                 body: body
                             };
                         });
+                    // YUI compressor fails to use the catch https://github.com/yui/yuicompressor/issues/203#issuecomment-265842534
+                    }, function (e) {
+                        var error = 'Fetch request failed: ' + JSON.stringify(e);
+                        lib.report_error(error);
+                        if (callback) {
+                            if (verbose_mode) {
+                                callback({ status: 0, error: error});
+                            } else {
+                                callback(0);
+                            }
+                        }
                     })
                     .then(function (res) {
                         if (res.status === 200) {
