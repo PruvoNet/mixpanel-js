@@ -4674,7 +4674,7 @@
                         }
                     })
                     .then(function (res) {
-                        if (res.status && res.status === 200) {
+                        if (res && res.status && res.status === 200) {
                             if (callback) {
                                 var body = res.body;
                                 if (verbose_mode) {
@@ -4694,7 +4694,7 @@
                                     callback(Number(body));
                                 }
                             }
-                        } else if (res.status)  {
+                        } else if (res && res.status)  {
                             var error = 'Bad HTTP status: ' + res.status + ' ' + res.statusText;
                             lib.report_error(error);
 
