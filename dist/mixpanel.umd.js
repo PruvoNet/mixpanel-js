@@ -4664,6 +4664,7 @@
                     }, function (e) {
                         var error = 'Fetch request failed: ' + JSON.stringify(e);
                         lib.report_error(error);
+                        succeeded = false;
                         if (callback) {
                             if (verbose_mode) {
                                 callback({ status: 0, error: error});
@@ -4673,7 +4674,7 @@
                         }
                     })
                     .then(function (res) {
-                        if (res.status === 200) {
+                        if (res.status && res.status === 200) {
                             if (callback) {
                                 var body = res.body;
                                 if (verbose_mode) {
@@ -4693,7 +4694,7 @@
                                     callback(Number(body));
                                 }
                             }
-                        } else {
+                        } else if (res.status)  {
                             var error = 'Bad HTTP status: ' + res.status + ' ' + res.statusText;
                             lib.report_error(error);
 
